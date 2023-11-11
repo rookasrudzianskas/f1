@@ -1,6 +1,9 @@
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import { ActivityIndicator } from 'react-native';
+import { Colors } from '../Constants/Colors';
+import { StatusBar } from 'expo-status-bar';
+import ApolloClientProvider from '../providers/ApolloClientProvider';
 
 export default function RootLayout() {
   const [fontsLoaded] = useFonts({
@@ -15,5 +18,19 @@ export default function RootLayout() {
     return <ActivityIndicator />;
   }
 
-  return <Stack />;
+  return (
+    <ApolloClientProvider>
+      <Stack
+        screenOptions={{
+          headerStyle: { backgroundColor: Colors.primary },
+          headerTitleStyle: { color: 'white', fontFamily: 'F1-Bold' },
+          headerTintColor: 'white',
+        }}
+      >
+        <Stack.Screen name="index" options={{ title: 'Racing' }} />
+      </Stack>
+
+      <StatusBar style="light" />
+    </ApolloClientProvider>
+  );
 }
